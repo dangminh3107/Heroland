@@ -102,18 +102,18 @@ export default {
             position: relative;
             overflow: hidden;
             white-space: nowrap;
-            /* animation: typing-1 8s steps(20) infinite; */
+            animation: typing-1 8s steps(20) infinite;
             text-shadow: 0 0 4px var(--main-color);
             cursor: text;
             @media screen and (min-width: 848px) and (max-width: 1024px) {
               font-size: 4.5vw;
               line-height: 4.5vw;
-              /* animation: typing-2 8s steps(20) infinite; */
+              animation: typing-2 8s steps(20) infinite;
             }
             @media screen and (max-width: 848px) {
               font-size: 5.5vw;
               line-height: 5.5vw;
-              /* animation: typing-3 8s steps(20) infinite; */
+              animation: typing-3 8s steps(20) infinite;
             }
             @keyframes typing-1 {
               0%,

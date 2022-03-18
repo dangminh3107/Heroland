@@ -22,12 +22,14 @@
         </div>
       </div>
     </div>
+    <HBGEcosystem />
   </div>
 </template>
 
 <script>
 // import Artboard83 from "../assets/images/Artboard 83.png"
 import LandOwner from "./LandOwner.vue";
+import HBGEcosystem from "./HBGEcosystem.vue"
 import Artboard38 from "../assets/images/Artboard 38.png";
 import Artboard97 from "../assets/images/Artboard 97.png";
 import button1 from "../assets/images/button 1.png";
@@ -37,7 +39,7 @@ import button4 from "../assets/images/button 4.png";
 import button5 from "../assets/images/button 5.png";
 export default {
   components: {
-    LandOwner,
+    LandOwner, HBGEcosystem
   },
   name: "BlockHBGComponent",
   data() {
@@ -63,7 +65,6 @@ export default {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  padding-bottom: 570px;
   .mask {
     width: 100%;
     background-image: url("../assets/images/Artboard 83.png");
@@ -78,6 +79,7 @@ export default {
       display: flex;
       flex-direction: column;
       align-items: center;
+      overflow: hidden;
       width: 100%;
       top: -80px;
       .defination {
@@ -94,7 +96,7 @@ export default {
             max-width: 560px;
             object-fit: contain;
           }
-          @media screen and (max-width: 560px) {
+          @media screen and (max-width: 572px) {
             width: 100%;
             padding: 0 20px;
             img {
@@ -150,7 +152,7 @@ export default {
           justify-content: space-between;
           div {
             cursor: pointer;
-            transition: all 0.4s linear;
+            transition: all 0.4s ease-in-out;
             &:hover {
               transform: scale(1.05);
               filter: brightness(1.4);

@@ -5,6 +5,8 @@
     <Descriptions />
     <BlockBase />
     <BlockHBG />
+    <Roadmap />
+    <BlockPartner />
   </div>
 </template>
 
@@ -14,11 +16,13 @@ import Home from "./components/Home.vue";
 import Descriptions from "./components/Descriptions.vue";
 import BlockBase from "./components/BlockBase.vue";
 import BlockHBG from "./components/BlockHBG.vue";
+import Roadmap from "./components/Roadmap.vue";
+import BlockPartner from "./components/BlockPartner.vue";
 
 export default {
   name: 'App',
   components: {
-    Navbar, Home, Descriptions, BlockBase, BlockHBG
+    Navbar, Home, Descriptions, BlockBase, BlockHBG, Roadmap, BlockPartner,
   }
 }
 </script>
