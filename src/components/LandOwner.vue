@@ -1,5 +1,5 @@
 <template>
-  <div class="landowner">
+  <div :class="['landowner', isActive ? 'active' : '']" ref="myRef">
     <div class="title">
       <h1>{{ title }}</h1>
       <span class="cursor"></span>
@@ -29,6 +29,7 @@ import Artboard27 from "../assets/images/Artboard 27.png";
 import Artboard77 from "../assets/images/Artboard 77.png";
 export default {
   name: "LandOwnerComponent",
+  props: ["pos"],
   data() {
     return {
       title: "LANDOWNER BENEFITS",
@@ -36,7 +37,17 @@ export default {
       Artboard25,
       Artboard27,
       Artboard77,
+      isActive: false,
     };
+  },
+  watch: {
+    pos: function () {
+      let x =
+        this.$refs.myRef.getBoundingClientRect().top -
+        this.$refs.myRef.getBoundingClientRect().height * 1.5;
+      if (x <= 0) this.isActive = true;
+      else this.isActive = false;
+    },
   },
 };
 </script>
@@ -49,6 +60,14 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  perspective: 1000px;
+  transition: transform 1.5s ease;
+  transform: rotateY(-180deg);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  &.active {
+    transform: rotateY(0);
+  }
   .title {
     margin-bottom: 80px;
     display: flex;

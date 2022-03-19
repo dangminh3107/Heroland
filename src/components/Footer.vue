@@ -115,12 +115,21 @@ export default {
       ul {
         list-style: none;
         li {
+          cursor: pointer;
           padding-bottom: 5px;
+          &:hover {
+            text-decoration: underline;
+          }
         }
         .button {
           margin-top: 20px;
           position: relative;
           left: -10px;
+          cursor: pointer;
+          transition: all 0.5s ease;
+          &:hover {
+            filter: brightness(1.2);
+          }
           img {
             max-width: 200px;
             object-fit: contain;

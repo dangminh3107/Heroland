@@ -1,7 +1,7 @@
 <template>
   <div class="block-base">
-    <HeroBase />
-    <ElectricBase />
+    <HeroBase :pos="pos"/>
+    <ElectricBase :pos="pos"/>
   </div>
 </template>
 
@@ -10,6 +10,7 @@ import HeroBase from "./HeroBase.vue";
 import ElectricBase from "./ElectricBase.vue";
 export default {
   name: "BlockBaseComponent",
+  props: ['pos'],
   components: {
     HeroBase,
     ElectricBase,

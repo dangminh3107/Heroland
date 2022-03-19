@@ -1,15 +1,15 @@
 <template>
   <div class="hbg-contain">
     <div class="mask">
-      <LandOwner />
+      <LandOwner :pos="pos" />
       <div class="grid-wrapper">
-        <div class="defination">
+        <div :class="['defination', isActive1 ? 'active' : '']" ref="myRef1">
           <div>
             <img :src="Artboard38" alt="" />
           </div>
           <p>{{ text_1 }}</p>
         </div>
-        <div class="hbg-help">
+        <div :class="['hbg-help', isActive2 ? 'active' : '']" ref="myRef2">
           <div>
             <img :src="Artboard97" alt="" />
           </div>
@@ -22,14 +22,14 @@
         </div>
       </div>
     </div>
-    <HBGEcosystem />
+    <HBGEcosystem :pos="pos" />
   </div>
 </template>
 
 <script>
 // import Artboard83 from "../assets/images/Artboard 83.png"
 import LandOwner from "./LandOwner.vue";
-import HBGEcosystem from "./HBGEcosystem.vue"
+import HBGEcosystem from "./HBGEcosystem.vue";
 import Artboard38 from "../assets/images/Artboard 38.png";
 import Artboard97 from "../assets/images/Artboard 97.png";
 import button1 from "../assets/images/button 1.png";
@@ -38,8 +38,10 @@ import button3 from "../assets/images/button 3.png";
 import button4 from "../assets/images/button 4.png";
 import button5 from "../assets/images/button 5.png";
 export default {
+  props: ["pos"],
   components: {
-    LandOwner, HBGEcosystem
+    LandOwner,
+    HBGEcosystem,
   },
   name: "BlockHBGComponent",
   data() {
@@ -53,7 +55,23 @@ export default {
       Artboard38,
       Artboard97,
       button: [button1, button2, button3, button4, button5],
+      isActive1: false,
+      isActive2: false,
     };
+  },
+  watch: {
+    pos: function () {
+      const x1 =
+        this.$refs.myRef1.getBoundingClientRect().top -
+        this.$refs.myRef1.getBoundingClientRect().height * 3;
+      const x2 =
+        this.$refs.myRef2.getBoundingClientRect().top -
+        this.$refs.myRef2.getBoundingClientRect().height * 2;
+      if (x1 <= 0) this.isActive1 = true;
+      else this.isActive1 = false;
+      if (x2 <= 0) this.isActive2 = true;
+      else this.isActive2 = false;
+    },
   },
 };
 </script>
@@ -90,6 +108,13 @@ export default {
         flex-direction: column;
         align-items: center;
         margin-bottom: 100px;
+        transition: all 1.5s ease;
+        transform: translateX(150%);
+        opacity: 0;
+        &.active {
+          opacity: 1;
+          transform: translateX(0);
+        }
         div {
           margin-bottom: 10px;
           img {
@@ -126,6 +151,13 @@ export default {
         align-items: center;
         text-align: center;
         width: 1200px;
+        transition: all 1.5s ease;
+        transform: translateX(-150%);
+        opacity: 0;
+        &.active {
+          opacity: 1;
+          transform: translateX(0);
+        }
         @media screen and (max-width: 1200px) {
           width: 100%;
         }

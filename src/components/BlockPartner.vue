@@ -1,31 +1,39 @@
 <template>
   <div class="partner-wrapper">
-    <div class="backer">
-      <div v-for="(item, index) in imagesTop" :key="index">
+    <div class="backer" ref="myRef1">
+      <div
+        v-for="(item, index) in imagesTop"
+        :key="index"
+        :class="[isActive1 ? 'active' : '']"
+      >
         <img :src="item" alt="" />
       </div>
     </div>
     <div class="partner">
-      <div class="title">
+      <div :class="['title', isActive2 ? 'active' : '']" ref="myRef2">
         <img :src="Artboard50" alt="" />
       </div>
-      <div class="image-contain">
-        <div v-for="(item, index) in imagesBottom" :key="index">
+      <div class="image-contain" ref="myRef3">
+        <div
+          v-for="(item, index) in imagesBottom"
+          :key="index"
+          :class="[isActive3 ? 'active' : '']"
+        >
           <img :src="item" alt="" />
         </div>
       </div>
     </div>
     <div class="start">
-      <div class="title">
+      <div :class="['title', isActive4 ? 'active' : '']" ref="myRef4">
         <img :src="Artboard58" alt="" />
       </div>
-      <div class="button">
+      <div :class="['button', isActive5 ? 'active' : '']" ref="myRef5">
         <img :src="Artboard59" alt="" />
       </div>
     </div>
     <div class="social">
       <div class="social-grid">
-        <div class="contact">
+        <div :class="['contact', isActive6 ? 'active' : '']" ref="myRef6">
           <div class="title">
             <div>
               <h3>GET IN TOUCH</h3>
@@ -44,7 +52,7 @@
             <span>Contact us: Support@herobook.io</span>
           </div>
         </div>
-        <div class="image">
+        <div :class="['image', isActive6 ? 'active' : '']" ref="myRef7">
           <img :src="Artboard73" alt="" />
         </div>
       </div>
@@ -76,8 +84,9 @@ import Artboard73 from "../assets/images/Artboard 73.png";
 import Footer from "./Footer.vue";
 export default {
   name: "BlockPartnerComponent",
+  props: ["pos"],
   components: {
-    Footer, 
+    Footer,
   },
   data() {
     return {
@@ -120,7 +129,57 @@ export default {
       Artboard58,
       Artboard59,
       Artboard73,
+      isActive1: false,
+      isActive2: false,
+      isActive3: false,
+      isActive4: false,
+      isActive5: false,
+      isActive6: false,
+      isActive7: false,
     };
+  },
+  watch: {
+    pos: function () {
+      let x1 =
+        this.$refs.myRef1.getBoundingClientRect().top -
+        this.$refs.myRef1.getBoundingClientRect().height -
+        this.$refs.myRef1.getBoundingClientRect().height * 4;
+      let x2 =
+        this.$refs.myRef2.getBoundingClientRect().top -
+        this.$refs.myRef2.getBoundingClientRect().height -
+        this.$refs.myRef2.getBoundingClientRect().height * 4;
+      let x3 =
+        this.$refs.myRef3.getBoundingClientRect().top -
+        this.$refs.myRef3.getBoundingClientRect().height * 2;
+      let x4 =
+        this.$refs.myRef4.getBoundingClientRect().top -
+        this.$refs.myRef4.getBoundingClientRect().height * 5;
+      let x5 =
+        this.$refs.myRef5.getBoundingClientRect().top -
+        this.$refs.myRef5.getBoundingClientRect().height * 7.5;
+      let x6 =
+        this.$refs.myRef6.getBoundingClientRect().top -
+        this.$refs.myRef6.getBoundingClientRect().height -
+        this.$refs.myRef6.getBoundingClientRect().height / 2;
+      let x7 =
+        this.$refs.myRef7.getBoundingClientRect().top -
+        this.$refs.myRef7.getBoundingClientRect().height -
+        this.$refs.myRef7.getBoundingClientRect().height / 2;
+      if (x1 <= 0) this.isActive1 = true;
+      else this.isActive1 = false;
+      if (x2 <= 0) this.isActive2 = true;
+      else this.isActive2 = false;
+      if (x3 <= 0) this.isActive3 = true;
+      else this.isActive3 = false;
+      if (x4 <= 0) this.isActive4 = true;
+      else this.isActive4 = false;
+      if (x5 <= 0) this.isActive5 = true;
+      else this.isActive5 = false;
+      if (x6 <= 0) this.isActive6 = true;
+      else this.isActive6 = false;
+      if (x7 <= 0) this.isActive7 = true;
+      else this.isActive7 = false;
+    },
   },
 };
 </script>
@@ -147,6 +206,16 @@ export default {
       justify-content: center;
     }
     div {
+      perspective: 1000px;
+      transition: all 1.5s ease;
+      opacity: 0;
+      transform: rotateY(180deg);
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+      &.active {
+        opacity: 1;
+        transform: rotateY(0);
+      }
       img {
         max-width: 190px;
       }
@@ -163,9 +232,19 @@ export default {
     }
     .title {
       margin-bottom: 70px;
+      transform: translateX(-150%);
+      transition: all 1s ease;
+      opacity: 0;
+      &.active {
+        opacity: 1;
+        transform: translateX(0);
+      }
       img {
         max-width: 380px;
         object-fit: contain;
+        @media screen and (max-width: 400px) {
+          max-width: 100%;
+        }
       }
     }
     .image-contain {
@@ -178,6 +257,16 @@ export default {
         justify-content: center;
       }
       div {
+        perspective: 1000px;
+        transition: all 1.5s ease;
+        opacity: 0;
+        transform: rotateY(-180deg);
+        transform-style: preserve-3d;
+        backface-visibility: hidden;
+        &.active {
+          opacity: 1;
+          transform: rotateY(0);
+        }
         img {
           max-width: 190px;
         }
@@ -196,6 +285,13 @@ export default {
     background-position: center center;
     .title {
       margin-bottom: 100px;
+      transition: all 1.5s ease;
+      transform: translateY(-150%);
+      opacity: 0;
+      &.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
       img {
         max-width: 760px;
         object-fit: contain;
@@ -205,9 +301,20 @@ export default {
       }
     }
     .button {
+      cursor: pointer;
+      transition: all 1.5s ease;
+      transform: translateY(150%);
+      opacity: 0;
+      &.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
       img {
         max-width: 260px;
         object-fit: contain;
+      }
+      &:hover {
+        filter: brightness(1.5);
       }
     }
   }
@@ -235,6 +342,13 @@ export default {
       }
       .contact {
         color: var(--white-color);
+        transition: all 1s ease;
+        transform: translateX(-150%);
+        opacity: 0;
+        &.active {
+          opacity: 1;
+          transform: translateX(0);
+        }
         @media screen and (max-width: 1200px) {
           display: flex;
           flex-direction: column;
@@ -282,6 +396,13 @@ export default {
               font-size: 15px;
             }
           }
+          @media screen and (max-width: 500px) {
+            width: 100%;
+            justify-content: space-around;
+            div {
+              margin-right: 0;
+            }
+          }
         }
         .email {
           font-size: 18px;
@@ -289,11 +410,19 @@ export default {
         }
       }
       .image {
+        transition: all 1s ease;
+        transform: translateX(150%);
+        opacity: 0;
+        &.active {
+          opacity: 1;
+          transform: translateX(0);
+        }
         @media screen and (max-width: 1200px) {
           display: flex;
           flex-direction: column;
           align-items: center;
           text-align: center;
+          padding-top: 40px;
         }
         img {
           max-width: 530px;

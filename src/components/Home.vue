@@ -10,16 +10,25 @@
           <div class="cursor"></div>
         </div>
         <div class="text-item two">
-          <img :src="Artboard59" alt="" />
-          <img :src="Artboard59" alt="" />
+          <img :src="Artboard59" alt="" data-aos="fade-left" />
+          <img :src="Artboard59" alt="" data-aos="fade-right" />
         </div>
-        <div class="text-item three">
+        <div
+          class="text-item three"
+          data-aos="flip-left"
+          data-aos-duration="1500"
+        >
           <button>TRAILER</button>
         </div>
       </div>
     </div>
-    <div class="img-footer">
-      <img :src="Artboard35_1" alt="" />
+    <div>
+      <img
+        :src="Artboard35_1"
+        alt=""
+        :class="['img-footer', isActive ? 'active' : '' ]"
+        ref="myRef"
+      />
     </div>
   </div>
 </template>
@@ -30,12 +39,21 @@ import Artboard59 from "../assets/images/Artboard 59.png";
 import Artboard35_1 from "../assets/images/Artboard 35_1.png";
 export default {
   name: "HomeComponent",
+  props: ["pos"],
   data() {
     return {
       Artboard9,
       Artboard59,
       Artboard35_1,
+      isActive: false,
     };
+  },
+  watch: {
+    pos: function (newPos) {
+      let x = this.$refs.myRef.getBoundingClientRect().height / 2;
+      if (newPos > x) this.isActive=true;
+      else this.isActive=false;
+    },
   },
 };
 </script>
@@ -51,6 +69,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow: hidden;
   .home-content {
     display: flex;
     flex-direction: column;
@@ -63,6 +82,9 @@ export default {
         object-fit: contain;
         animation: appear 4s ease-in-out forwards,
           floating 3s ease-in-out infinite;
+        @media screen and (max-width: 400px) {
+          max-width: 100%;
+        }
       }
 
       @keyframes appear {
@@ -186,6 +208,9 @@ export default {
             &:hover {
               filter: brightness(1.2);
             }
+            @media screen and (max-width: 400px) {
+              width: 46vw;
+            }
           }
           @media screen and (min-width: 848px) and (max-width: 1024px) {
             min-width: 50vw;
@@ -222,9 +247,11 @@ export default {
     width: 100%;
     bottom: 0;
     margin-top: 80px;
-    img {
-      width: 100%;
-      object-fit: contain;
+    object-fit: contain;
+    transform: translateY(100%);
+    transition: all 1s ease;
+    &.active {
+      transform: translateY(0);
     }
   }
 }

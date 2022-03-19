@@ -1,11 +1,11 @@
 <template>
   <div class="ecosystem">
     <div class="eco-grid">
-      <div class="title">
+      <div :class="['title', isActive1 ? 'active' : '']" ref="myRef1">
         <img :src="Artboard76" alt="" />
       </div>
     </div>
-    <div class="content">
+    <div :class="['content', isActive2 ? 'active' : '']" ref="myRef2">
       <div class="eco-grid">
         <table>
           <tr v-for="(item, index) in textArr" :key="index">
@@ -30,6 +30,7 @@ import Artboard76 from "../assets/images/Artboard 76.png";
 import Artboard39 from "../assets/images/Artboard 39.png";
 export default {
   name: "HBGEcosystemCompoent",
+  props: ["pos"],
   data() {
     return {
       textArr: [
@@ -78,7 +79,23 @@ export default {
       ],
       Artboard76,
       Artboard39,
+      isActive1: false,
+      isActive2: false,
     };
+  },
+  watch: {
+    pos: function () {
+      let x1 =
+        this.$refs.myRef1.getBoundingClientRect().top -
+        this.$refs.myRef1.getBoundingClientRect().height * 2.5;
+      let x2 =
+        this.$refs.myRef2.getBoundingClientRect().top -
+        this.$refs.myRef2.getBoundingClientRect().height;
+      if (x1 <= 0) this.isActive1 = true;
+      else this.isActive1 = false;
+      if (x2 <= 0) this.isActive2 = true;
+      else this.isActive2 = false;
+    },
   },
 };
 </script>
@@ -95,6 +112,13 @@ export default {
   .eco-grid {
     width: 1200px;
     .title {
+      transform: translateX(-150%);
+      transition: all 1s ease;
+      opacity: 0;
+      &.active {
+        opacity: 1;
+        transform: translateX(0);
+      }
       img {
         max-width: 650px;
         @media screen and (max-width: 660px) {
@@ -116,6 +140,13 @@ export default {
     background-position: top center;
     align-items: center;
     padding: 40px 0 20px;
+    transform: translateX(150%);
+    transition: all 1s ease;
+    opacity: 0;
+    &.active {
+      opacity: 1;
+      transform: translateX(0);
+    }
     .eco-grid {
       padding: 0 30px;
       display: flex;
@@ -163,6 +194,9 @@ export default {
       .pie-chart {
         img {
           max-width: 350px;
+          @media screen and (max-width: 400px) {
+            max-width: 100%;
+          }
         }
       }
     }

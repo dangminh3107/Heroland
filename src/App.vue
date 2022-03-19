@@ -1,12 +1,12 @@
 <template>
   <div id="app">
     <Navbar />
-    <Home />
-    <Descriptions />
-    <BlockBase />
-    <BlockHBG />
-    <Roadmap />
-    <BlockPartner />
+    <Home :pos="pos"/>
+    <Descriptions :pos="pos"/>
+    <BlockBase :pos="pos"/>
+    <BlockHBG :pos="pos"/>
+    <Roadmap :pos="pos"/>
+    <BlockPartner :pos="pos"/>
   </div>
 </template>
 
@@ -20,9 +20,25 @@ import Roadmap from "./components/Roadmap.vue";
 import BlockPartner from "./components/BlockPartner.vue";
 
 export default {
+  created () {
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  destroyed () {
+    window.removeEventListener('scroll', this.handleScroll);
+  },
   name: 'App',
   components: {
     Navbar, Home, Descriptions, BlockBase, BlockHBG, Roadmap, BlockPartner,
+  },
+  data() {
+    return {
+      pos: 0,
+    }
+  },
+  methods: {
+    handleScroll() {
+      this.pos = window.scrollY;
+    }
   }
 }
 </script>
